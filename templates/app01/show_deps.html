@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>显示所有的部门</title>
+</head>
+<body>
+
+<h3>部门信息</h3>
+<table>
+    <tr>
+        <td width="150px">id</td>
+        <td width="150px">部门名称</td>
+        <td width="150px">成立时间</td>
+    </tr>
+
+    {% for d in departments %}
+        <tr>
+            <td width="150px">{{ d.id }}</td>
+            <td width="150px">{{ d.name }}</td>
+            <td width="150px">{{ d.create_date }}</td>
+            <td width="150px"><a href="/show_dep/{{ d.id }}">查看</a></td>
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

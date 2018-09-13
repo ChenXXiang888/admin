@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+
+</head>
+<body>
+
+<h3>首页</h3>
+
+姓名: {{ name }} <br/>
+性别: {{ sex }} <br/>
+年龄: {{ age }} <br/>
+工资: {{ salary }} <br/>
+爱好:  <br/>
+
+<ul>
+{% for item in  hobby %}
+    <li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+</body>
+</html>
