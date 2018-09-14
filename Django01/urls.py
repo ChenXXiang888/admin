@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-
+import xadmin
 # app01/index
 # index
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
+    # url(r'^admin/', include(admin.site.urls)),
+    url(r'^xadmin/', include(xadmin.site.urls)),
 
     # 包含应用app01下的url.py文件
     # http://127.0.0.1:8080/app01/index
