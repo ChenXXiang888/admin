@@ -84,6 +84,13 @@ class Goods(models.Model):
     lib_id  所属商品库id
     status 商品状态 0-正常 1-下架 2-删除
     """
+    # EXCHANGE_RATE_CHOICES = (
+    #     (1, "人民币"),
+    #     (2, "美元"),
+    #     (3, "港币"),
+    #     (4, "日元"),
+    #     (5, "英镑"),
+    # )
     name = models.CharField(max_length=16, verbose_name='商品名称')
     lib_id = models.ForeignKey(GoodsLib, verbose_name='商品库id')
     # category_id = models.IntegerField(default=0, verbose_name='一级分类')
@@ -98,9 +105,10 @@ class Goods(models.Model):
     cost_price = models.IntegerField(default=0, verbose_name='成本价')
     stock = models.IntegerField(default=0, verbose_name='库存')
     status = models.IntegerField(default=0, verbose_name='商品状态')
-    currency_id = models.IntegerField(default=0, verbose_name='货币id')
+    # currency_id = models.IntegerField(default=0, verbose_name='货币id')
     # currency_name = models.CharField(max_length=16, verbose_name='货币名称')
-    currency_name = models.ForeignKey(ExchangeRate, verbose_name='货币名称')
+    currency_id = models.ForeignKey(ExchangeRate, verbose_name='货币id')
+    currency_name = models.CharField(max_length=16, default=u"人民币", verbose_name='货币名称')
 
     def __str__(self):
         return self.name
