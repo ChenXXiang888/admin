@@ -79,7 +79,7 @@ class ExchangeRate(models.Model):
 
 
 class Goods(models.Model):
-    """商品规格表
+    """商品表
     name 商品名称
     lib_id  所属商品库id
     status 商品状态 0-正常 1-下架 2-删除
@@ -139,6 +139,77 @@ class GoodsSku(models.Model):
     class Meta:
         db_table = "df_goodssku"
         verbose_name = "商品规格管理"
+        verbose_name_plural = verbose_name
+
+
+class HotGoodsCategory(models.Model):
+    """
+    热销产品分类
+    """
+    name = models.CharField(max_length=32, verbose_name='热销产品分类名称')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "df_hot_goods_category"
+        verbose_name = "热销产品分类管理"
+        verbose_name_plural = verbose_name
+
+
+class HotArea(models.Model):
+    """
+    热门地区分类
+    """
+    name = models.CharField(max_length=32, verbose_name='热门地区分类名称')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "df_hot_area"
+        verbose_name = "热门地区分类管理"
+        verbose_name_plural = verbose_name
+
+
+class HotGoods(models.Model):
+    """热销商品表
+    name 商品名称
+    lib_id  所属商品库id
+    status 商品状态 0-正常 1-下架 2-删除
+    """
+    category_id = models.ForeignKey(HotGoodsCategory, verbose_name='热销产品分类id')
+    area_id = models.ForeignKey(HotArea, verbose_name='热门地区分类id')
+    name = models.CharField(max_length=16, verbose_name='商品名称')
+    # 头像, 上传的图片保存到media/app01/image目录下
+    image = models.ImageField(upload_to='app01/image/', verbose_name="商品图片")
+    desc = models.TextField(verbose_name="商品描述", default="", blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "df_hot_goods"
+        verbose_name = "热销商品管理"
+        verbose_name_plural = verbose_name
+
+
+class HotGoodsSku(models.Model):
+    """
+    Hot商品规格表
+    """
+    goods_id = models.ForeignKey(HotGoods, verbose_name='热销商品id')
+    sku_name = models.CharField(max_length=32, verbose_name='商品规格名称')
+    stock = models.IntegerField(default=0, verbose_name='库存')
+    taobao_price = models.IntegerField(default=0, verbose_name='淘宝价')
+    kaola_price = models.IntegerField(default=0, verbose_name='考拉价')
+
+    def __str__(self):
+        return self.sku_name
+
+    class Meta:
+        db_table = "df_hot_goods_sku"
+        verbose_name = "热销商品规格管理"
         verbose_name_plural = verbose_name
 
 
