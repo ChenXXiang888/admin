@@ -21,7 +21,7 @@ class GoodsLibAdmin(admin.ModelAdmin):
 
 class GoodsAdmin(admin.ModelAdmin):
     # 定义要在后台显示哪些字段
-    list_display = ['id', 'name', 'lib_id', 'category_id', 'second_category_id', 'image', 'desc', 'sale_price', 'agent_price', 'cost_price', 'stock', 'status', 'currency_id', 'currency_name']
+    list_display = ['id', 'name', 'lib_id', 'category_id', 'second_category_id', 'image', 'desc', 'sale_price', 'agent_price', 'cost_price', 'taobao_price', 'kaola_price', 'stock', 'status', 'currency_id', 'currency_name']
     # 每页显示多少条
     list_per_page = 10
     # 操作栏的显示与隐藏

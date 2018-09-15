@@ -14,7 +14,7 @@ class GoodsCategory(models.Model):
 
     class Meta:
         db_table = "df_goods_category"
-        verbose_name = "商品商品一级分类"
+        verbose_name = "商品分类管理"
         verbose_name_plural = verbose_name
 
 
@@ -32,7 +32,7 @@ class GoodsSecondCategory(models.Model):
 
     class Meta:
         db_table = "df_goods_second_category"
-        verbose_name = "商品商品二级分类"
+        verbose_name = "商品二级分类管理"
         verbose_name_plural = verbose_name
 
 
@@ -56,7 +56,7 @@ class GoodsLib(models.Model):
 
     class Meta:
         db_table = "df_goods_lib"
-        verbose_name = "商品库"
+        verbose_name = "商品库管理"
         verbose_name_plural = verbose_name
 
 
@@ -74,7 +74,7 @@ class ExchangeRate(models.Model):
 
     class Meta:
         db_table = "df_exchange_rate"
-        verbose_name = "货币汇率表"
+        verbose_name = "货币汇率管理"
         verbose_name_plural = verbose_name
 
 
@@ -103,19 +103,21 @@ class Goods(models.Model):
     sale_price = models.IntegerField(default=0, verbose_name='售价')
     agent_price = models.IntegerField(default=0, verbose_name='代理价')
     cost_price = models.IntegerField(default=0, verbose_name='成本价')
+    taobao_price = models.IntegerField(default=0, verbose_name='淘宝价')
+    kaola_price = models.IntegerField(default=0, verbose_name='考拉价')
     stock = models.IntegerField(default=0, verbose_name='库存')
     status = models.IntegerField(default=0, verbose_name='商品状态')
     # currency_id = models.IntegerField(default=0, verbose_name='货币id')
     # currency_name = models.CharField(max_length=16, verbose_name='货币名称')
     currency_id = models.ForeignKey(ExchangeRate, verbose_name='货币id')
-    currency_name = models.CharField(max_length=16, default=u"人民币", verbose_name='货币名称')
+    currency_name = models.CharField(max_length=16, default=u"人民币", verbose_name='货币单位')
 
     def __str__(self):
         return self.name
 
     class Meta:
         db_table = "df_goods"
-        verbose_name = "商品库商品"
+        verbose_name = "商品管理"
         verbose_name_plural = verbose_name
 
 
@@ -136,7 +138,7 @@ class GoodsSku(models.Model):
 
     class Meta:
         db_table = "df_goodssku"
-        verbose_name = "商品规格表"
+        verbose_name = "商品规格管理"
         verbose_name_plural = verbose_name
 
 

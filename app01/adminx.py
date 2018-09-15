@@ -1,4 +1,5 @@
 import xadmin
+from xadmin import views
 # from django.contrib import admin
 from django.contrib.admin.options import TabularInline
 from app01.models import *
@@ -21,12 +22,17 @@ class GoodsLibAdmin(object):
     # fields = ['parent', 'title']
 
 
+class GoodsSkuInline(object):
+    model = GoodsSku
+    extra = 0
+
+
 # class GoodsAdmin(admin.ModelAdmin):
 class GoodsAdmin(object):
     # 定义要在后台显示哪些字段
-    list_display = ['id', 'name', 'lib_id', 'category_id', 'second_category_id', 'image', 'desc', 'sale_price', 'agent_price', 'cost_price', 'stock', 'status', 'currency_id', 'currency_name']
+    list_display = ['id', 'name', 'lib_id', 'category_id', 'second_category_id', 'image', 'desc', 'sale_price', 'agent_price', 'cost_price', 'taobao_price', 'kaola_price', 'stock', 'status', 'currency_id', 'currency_name']
     # 每页显示多少条
-    list_per_page = 10
+    list_per_page = 2
     # 操作栏的显示与隐藏
     actions_on_top = True
     actions_on_bottom = True
@@ -36,6 +42,7 @@ class GoodsAdmin(object):
     list_filter = ['name', 'category_id', 'second_category_id']
     # 要在编辑界面编辑哪些字段
     # fields = ['parent', 'title']
+    inlines = [GoodsSkuInline]
 
 
 # class GoodsSkuAdmin(admin.ModelAdmin):
@@ -55,8 +62,9 @@ class GoodsSkuAdmin(object):
     # fields = ['parent', 'title']
 
 
-# class GoodsCategoryTabularInline(TabularInline):
-#     model = GoodsSecondCategory
+class GoodsCategoryInline(object):
+    model = GoodsSecondCategory
+    extra = 0
 
 
 # class GoodsCategoryAdmin(admin.ModelAdmin):
@@ -74,7 +82,7 @@ class GoodsCategoryAdmin(object):
     list_filter = ['name']
     # 要在编辑界面编辑哪些字段
     # fields = ['name']
-    # inlines = [GoodsCategoryTabularInline]
+    inlines = [GoodsCategoryInline]
 
 
 # class GoodsSecondCategoryAdmin(admin.ModelAdmin):
@@ -111,13 +119,19 @@ class ExchangeRateAdmin(object):
     # fields = ['parent', 'title']
 
 
-# class GlobalSetting(object):
-#     site_title = '后台管理系统'   # 设置头标题
-#     # site_footer = '后台管理系统'  # 设置脚标题
-#     menu_style = 'accordion'
-#
-#
-# xadmin.site.register(views.CommAdminView, GlobalSetting)
+class GlobalSetting(object):
+    site_title = "代购小助理后台管理系统"
+    # site_footer = '后台管理系统'  # 设置脚标题
+    menu_style = 'accordion'
+
+
+class BaseSetting(object):
+    enable_themes = True
+    use_bootswatch = True
+
+
+xadmin.site.register(views.BaseAdminView, BaseSetting)
+xadmin.site.register(views.CommAdminView, GlobalSetting)
 xadmin.site.register(GoodsLib, GoodsLibAdmin)
 xadmin.site.register(Goods, GoodsAdmin)
 xadmin.site.register(GoodsSku, GoodsSkuAdmin)
